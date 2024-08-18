@@ -11,9 +11,16 @@ import Travel_Agency_Page from '../Assets/travel-agency-free-landing-pageff.jpg'
 const CardContainer = styled(Box)({
   position: 'relative',
   overflow: 'hidden',
-  '&:hover .hoverContent': {
-    transform: 'translateY(0)',
-    opacity: 1,
+  perspective: '1000px',
+  transition: 'transform 0.4s',
+  '&:hover > div': {
+    transform: 'rotateY(30deg)',
+    '& > div:nth-child(2)': {
+      transform: 'scaleY(0.9) translate3d(20px, 30px, 40px)',
+    },
+    '& > div:nth-child(3)': {
+      transform: 'translate3d(45px, 50px, 40px)',
+    },
   },
 });
 
@@ -22,8 +29,8 @@ const HoverContent = styled(Box)({
   bottom: 0,
   left: 0,
   width: '100%',
-  height: '80%',
-  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  height: '100%',
+  backgroundColor: 'rgba(0, 0, 0, 0.8)',
   color: 'white',
   display: 'flex',
   flexDirection: 'column',
@@ -34,6 +41,19 @@ const HoverContent = styled(Box)({
   transition: 'transform 0.3s ease, opacity 0.3s ease',
   padding: '16px',
   boxSizing: 'border-box',
+  textAlign: 'center',
+});
+
+const Overlay = styled(Box)({
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7))',
+  transition: 'opacity 0.3s ease',
+  opacity: 0,
+  pointerEvents: 'none',
 });
 
 const projects = [
@@ -94,14 +114,52 @@ const Project = () => {
         {projects.map((project, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
             <CardContainer>
-              <Card>
-                <CardMedia component="img" height="140" image={project.image} alt={project.title} />
-                <CardContent >
-                  <Typography gutterBottom variant="h5">
+              <Card
+                variant="outlined"
+                sx={{
+                  minHeight: '280px',
+                  width: 320,
+                  backgroundColor: '#fff',
+                  borderColor: '#000',
+                  transition: 'transform 0.4s',
+                  perspective: '1000px',
+                  overflow: 'hidden',
+                  position: 'relative',
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={project.image}
+                  alt={project.title}
+                  sx={{
+                    transition: 'transform 0.3s ease',
+                    '&:hover': {
+                      transform: 'scale(1.1)',
+                      cursor: 'pointer',
+                    },
+                    background:
+                      'linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 300px)',
+                    border: '1px solid',
+                    borderColor: '#777',
+                    backdropFilter: 'blur(1px)',
+                  }}
+                />
+                <Overlay className="overlay" />
+                <CardContent
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-end',
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0.3))',
+                    border: '1px solid',
+                    borderColor: '#000',
+                    backdropFilter: 'blur(1px)',
+                    height: '100%',
+                  }}
+                >
+                  <Typography variant="h5" sx={{ color: '#fff', margin: 2 }}>
                     {project.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {project.shortDescription}
                   </Typography>
                 </CardContent>
                 <HoverContent className="hoverContent">
