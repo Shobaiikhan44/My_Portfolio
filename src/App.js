@@ -4,7 +4,7 @@ import NavBar from './components/NavBar';
 import HomeComponent from './components/Home';
 import Services from './components/Services';
 import Project from './components/Project';
-
+import Contact from './components/Contact';
 const App = () => {
   return (
     <div>
@@ -20,6 +20,8 @@ const App = () => {
         <HomeComponent />
         <Services />
         <Project />
+        <Contact />
+
       </Box>
     </div>
   );

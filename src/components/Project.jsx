@@ -29,8 +29,8 @@ const HoverContent = styled(Box)({
   bottom: 0,
   left: 0,
   width: '100%',
-  height: '100%',
-  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  height: '80%',
+  backgroundColor: 'rgba(0, 0, 0, 0.7)',
   color: 'white',
   display: 'flex',
   flexDirection: 'column',
@@ -41,19 +41,6 @@ const HoverContent = styled(Box)({
   transition: 'transform 0.3s ease, opacity 0.3s ease',
   padding: '16px',
   boxSizing: 'border-box',
-  textAlign: 'center',
-});
-
-const Overlay = styled(Box)({
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7))',
-  transition: 'opacity 0.3s ease',
-  opacity: 0,
-  pointerEvents: 'none',
 });
 
 const projects = [
@@ -98,7 +85,7 @@ const projects = [
 
 const Project = () => {
   return (
-    <Container sx={{ marginTop: '150px', maxWidth: '1200px' }}>
+    <Container sx={{ marginTop: '150px', maxWidth: '1200px'   }}>
       <Typography
         variant="h4"
         sx={{
@@ -110,21 +97,20 @@ const Project = () => {
       >
         Projects
       </Typography>
-      <Grid container spacing={4} justifyContent="center">
+      <Grid container spacing={2} justifyContent="center" sx={{ marginLeft: {xs: 'px'}}}>
         {projects.map((project, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid item xs={4} sm={6} md={4} key={index}>
             <CardContainer>
               <Card
                 variant="outlined"
                 sx={{
-                  minHeight: '280px',
-                  width: 320,
+                  minHeight: {md: '280px' , xs: '150px'},
+                  width: {xs: '150px' , md:'300px'},
                   backgroundColor: '#fff',
                   borderColor: '#000',
                   transition: 'transform 0.4s',
                   perspective: '1000px',
                   overflow: 'hidden',
-                  position: 'relative',
                 }}
               >
                 <CardMedia
@@ -133,11 +119,6 @@ const Project = () => {
                   image={project.image}
                   alt={project.title}
                   sx={{
-                    transition: 'transform 0.3s ease',
-                    '&:hover': {
-                      transform: 'scale(1.1)',
-                      cursor: 'pointer',
-                    },
                     background:
                       'linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 300px)',
                     border: '1px solid',
@@ -145,7 +126,6 @@ const Project = () => {
                     backdropFilter: 'blur(1px)',
                   }}
                 />
-                <Overlay className="overlay" />
                 <CardContent
                   sx={{
                     display: 'flex',
