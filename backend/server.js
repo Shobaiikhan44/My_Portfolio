@@ -3,17 +3,18 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const fs = require('fs');
-const path = require('path');
+const device = require('express-device');
+const axios = require('axios');
+const ip = require('ip');
 require('dotenv').config(); // For loading environment variables
 
 const app = express();
 const port = 5000;
-const messagesFilePath = path.join(__dirname, 'messages.json');
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(device.capture());
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/contact-form', {
@@ -26,6 +27,9 @@ const messageSchema = new mongoose.Schema({
   name: String,
   email: String,
   message: String,
+  ip: String,
+  device: Object,
+  location: Object,
   createdAt: { type: Date, default: Date.now },
 });
 
@@ -40,36 +44,31 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Helper function to save messages to a file
-function saveMessageToFile(message) {
-  fs.readFile(messagesFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading file:', err);
-      return;
-    }
-    let messages = [];
-    if (data) {
-      messages = JSON.parse(data);
-    }
-    messages.push(message);
-    fs.writeFile(messagesFilePath, JSON.stringify(messages, null, 2), (err) => {
-      if (err) {
-        console.error('Error writing to file:', err);
-      }
-    });
-  });
-}
-
 // Routes
 app.post('/api/messages', async (req, res) => {
   const { name, email, message } = req.body;
+  const userIp = ip.address();
+  const deviceInfo = req.device;
 
   try {
-    const newMessage = new Message({ name, email, message });
-    await newMessage.save();
+    // Get user location
+    const locationResponse = await axios.get(`https://ipinfo.io/${userIp}/geo`);
+    const userData = {
+      ip: userIp,
+      device: deviceInfo,
+      location: locationResponse.data,
+    };
 
-    // Save to file
-    saveMessageToFile(newMessage);
+    const newMessage = new Message({
+      name,
+      email,
+      message,
+      ip: userIp,
+      device: deviceInfo,
+      location: locationResponse.data,
+    });
+
+    await newMessage.save();
 
     // Send email
     const mailOptions = {

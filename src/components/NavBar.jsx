@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -8,7 +9,6 @@ import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-
 
 const StyledButton = styled(Button)({
   color: 'inherit',
@@ -38,7 +38,7 @@ const NavBar = () => {
       </Typography>
       <List>
         {['Home', 'Services', 'Projects', 'Contact'].map((text) => (
-          <ListItem button key={text}>
+          <ListItem button key={text} component={Link} to={`/${text.toLowerCase()}`}>
             <ListItemText primary={text} />
           </ListItem>
         ))}
@@ -64,10 +64,10 @@ const NavBar = () => {
           </IconButton>
         ) : (
           <Box sx={{ display: 'flex' }}>
-            <StyledButton>Home</StyledButton>
-            <StyledButton>Services</StyledButton>
-            <StyledButton>Projects</StyledButton>
-            <StyledButton>Contact</StyledButton>
+            <StyledButton component={Link} to="/">Home</StyledButton>
+            <StyledButton component={Link} to="/services">Services</StyledButton>
+            <StyledButton component={Link} to="/projects">Projects</StyledButton>
+            <StyledButton component={Link} to="/contact">Contact</StyledButton>
           </Box>
         )}
       </Toolbar>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Grid, Card, CardMedia, CardContent, Typography, Box, Container, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import Cooking_page from '../Assets/Cooking_Page.jpg';
@@ -7,12 +7,15 @@ import Little_Lemon from '../Assets/Little_Lemon.png';
 import Shoping_page from '../Assets/Shoping_page.jpg';
 import Login_Page from '../Assets/Login_Page.png';
 import Travel_Agency_Page from '../Assets/travel-agency-free-landing-pageff.jpg';
+import projectMusic from '../Assets/click.mp3'; // Add your audio file here
 
-const CardContainer = styled(Box)({
+const CardContainer = styled(Box)(({ isClicked }) => ({
   position: 'relative',
   overflow: 'hidden',
   perspective: '1000px',
-  transition: 'transform 0.4s',
+  transition: 'transform 0.4s, box-shadow 0.4s',
+  transform: isClicked ? 'scale(1.05)' : 'scale(1)',
+  boxShadow: isClicked ? '0px 4px 16px rgba(0,0,0,0.2)' : '0px 2px 8px rgba(0,0,0,0.1)',
   '&:hover > div': {
     transform: 'rotateY(30deg)',
     '& > div:nth-child(2)': {
@@ -22,7 +25,7 @@ const CardContainer = styled(Box)({
       transform: 'translate3d(45px, 50px, 40px)',
     },
   },
-});
+}));
 
 const HoverContent = styled(Box)({
   position: 'absolute',
@@ -84,8 +87,26 @@ const projects = [
 ];
 
 const Project = () => {
+  const [clickedIndex, setClickedIndex] = useState(null);
+  const [audio] = useState(new Audio(projectMusic)); // Initialize audio object
+  const audioRef = useRef(audio);
+
+  const handleCardClick = (index) => {
+    setClickedIndex(index);
+    setTimeout(() => setClickedIndex(null), 300); // Reset click effect after animation
+  };
+
+  const handleMouseEnter = () => {
+    audioRef.current.play(); // Play audio on hover
+  };
+
+  const handleMouseLeave = () => {
+    audioRef.current.pause(); // Pause audio when not hovering
+    audioRef.current.currentTime = 0; // Reset audio to start
+  };
+
   return (
-    <Container sx={{ marginTop: '150px', maxWidth: '1200px'   }}>
+    <Container sx={{ marginTop: '150px', maxWidth: '1200px' }}>
       <Typography
         variant="h4"
         sx={{
@@ -97,10 +118,15 @@ const Project = () => {
       >
         Projects
       </Typography>
-      <Grid container spacing={2} justifyContent="center" sx={{ marginLeft: {xs: 'px'}}}>
+      <Grid container spacing={2} justifyContent="center">
         {projects.map((project, index) => (
           <Grid item xs={4} sm={6} md={4} key={index}>
-            <CardContainer>
+            <CardContainer
+              isClicked={clickedIndex === index}
+              onClick={() => handleCardClick(index)}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <Card
                 variant="outlined"
                 sx={{

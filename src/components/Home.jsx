@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Grid, Typography, Box, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import myPic from '../Assets/myPic.png'; 
@@ -7,6 +7,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import Resume from '../Assets/Muhammad_Shoban_FE.pdf';
+import myAudio from '../Assets/tone.mp3'; // Add your audio file here
 
 const ResponsiveImage = styled('img')(({ theme }) => ({
   width: '100%',
@@ -24,6 +25,14 @@ const ResponsiveImage = styled('img')(({ theme }) => ({
 }));
 
 const HomeComponent = () => {
+  const audioRef = useRef(null);
+
+  const handleImageClick = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+  };
+
   return (
     <Box sx={{ marginTop: '50px', padding: { xs: 2, lg: 5 } }}>
       <Grid container spacing={6} alignItems="center" justifyContent="center">
@@ -38,12 +47,12 @@ const HomeComponent = () => {
             And I'm <span style={{ color: '#0DFFEB' }}>Frontend Developer</span>
           </Typography>
           <Typography variant="body1" component="div" sx={{ mt: 2 }}>
-  A certified Front-End Developer from Meta.<br />
-  I specialize in creating dynamic, user-friendly,<br />
-  and responsive web interfaces using React.js <br /> /Next.js
-  with Tailwind CSS & Material UI.<br />
-  Passionate about delivering high-quality code and seamless user experiences.
-</Typography>
+            A certified Front-End Developer from Meta.<br />
+            I specialize in creating dynamic, user-friendly,<br />
+            and responsive web interfaces using React.js <br /> /Next.js
+            with Tailwind CSS & Material UI.<br />
+            Passionate about delivering high-quality code and seamless user experiences.
+          </Typography>
           <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' }, gap: 2, mt: 2 }}>
             <a href="https://www.linkedin.com/in/muhammad-shoban-9b157324b/" rel="noopener noreferrer" target="_blank">
               <LinkedInIcon sx={{ fontSize: 40, color: '#0DFFEB', transition: 'transform 0.3s', '&:hover': { color: 'white', transform: 'scale(1.05)' } }} />
@@ -79,9 +88,10 @@ const HomeComponent = () => {
           </Button>
         </Grid>
         <Grid item xs={12} md={6} order={{ xs: 0, md: 1 }} display="flex" justifyContent="center">
-          <ResponsiveImage src={myPic} alt="Muhammad Shoban" />
+          <ResponsiveImage src={myPic} alt="Muhammad Shoban" onClick={handleImageClick} />
         </Grid>
       </Grid>
+      <audio ref={audioRef} src={myAudio} />
     </Box>
   );
 };
