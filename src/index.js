@@ -1,14 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
-import { ThemeProvider } from '@emotion/react';
-import { theme } from './components/theme.jsx';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './components/theme';
 import { CssBaseline } from '@mui/material'; // Import CssBaseline
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
   <ThemeProvider theme={theme}>
     <CssBaseline /> {/* Apply CssBaseline for global styles */}
     <App />
-  </ThemeProvider>,
-  document.getElementById('root')
+  </ThemeProvider>
 );

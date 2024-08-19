@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -22,7 +22,7 @@ const StyledButton = styled(Button)({
   },
 });
 
-const NavBar = () => {
+const NavBar = ({ setCurrentPage }) => {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -38,7 +38,7 @@ const NavBar = () => {
       </Typography>
       <List>
         {['Home', 'Services', 'Projects', 'Contact'].map((text) => (
-          <ListItem button key={text} component={Link} to={`/${text.toLowerCase()}`}>
+          <ListItem button key={text} onClick={() => setCurrentPage(text.toLowerCase())}>
             <ListItemText primary={text} />
           </ListItem>
         ))}
@@ -64,10 +64,10 @@ const NavBar = () => {
           </IconButton>
         ) : (
           <Box sx={{ display: 'flex' }}>
-            <StyledButton component={Link} to="/">Home</StyledButton>
-            <StyledButton component={Link} to="/services">Services</StyledButton>
-            <StyledButton component={Link} to="/projects">Projects</StyledButton>
-            <StyledButton component={Link} to="/contact">Contact</StyledButton>
+            <StyledButton onClick={() => setCurrentPage('home')}>Home</StyledButton>
+            <StyledButton onClick={() => setCurrentPage('services')}>Services</StyledButton>
+            <StyledButton onClick={() => setCurrentPage('projects')}>Projects</StyledButton>
+            <StyledButton onClick={() => setCurrentPage('contact')}>Contact</StyledButton>
           </Box>
         )}
       </Toolbar>

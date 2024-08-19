@@ -106,7 +106,7 @@ const Project = () => {
   };
 
   return (
-    <Container sx={{ marginTop: '150px', maxWidth: '1200px' }}>
+    <Container sx={{ marginTop: '50px', maxWidth: '1200px' }}>
       <Typography
         variant="h4"
         sx={{

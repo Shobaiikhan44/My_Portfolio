@@ -34,7 +34,7 @@ const HomeComponent = () => {
   };
 
   return (
-    <Box sx={{ marginTop: '50px', padding: { xs: 2, lg: 5 } }}>
+    <Box sx={{ marginTop: '0px', padding: { xs: 2, lg: 5 } }}>
       <Grid container spacing={6} alignItems="center" justifyContent="center">
         <Grid item xs={12} md={6} order={{ xs: 1, md: 0 }} textAlign={{ xs: 'center', md: 'left' }}>
           <Typography variant="h4" component="div" fontWeight="bold">

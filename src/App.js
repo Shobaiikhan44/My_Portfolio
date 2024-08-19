@@ -1,5 +1,4 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import NavBar from './components/NavBar';
 import HomeComponent from './components/Home';
@@ -8,9 +7,32 @@ import Project from './components/Project';
 import Contact from './components/Contact';
 
 const App = () => {
+  const [currentPage, setCurrentPage] = useState('home');
+
+  const renderContent = () => {
+    switch (currentPage) {
+      case 'services':
+        return <Services />;
+      case 'projects':
+        return <Project />;
+      case 'contact':
+        return <Contact />;
+      case 'home':
+      default:
+        return (
+          <>
+            <HomeComponent />
+            <Services />
+            <Project />
+            <Contact />
+          </>
+        );
+    }
+  };
+
   return (
-    <Router>
-      <NavBar />
+    <div>
+      <NavBar setCurrentPage={setCurrentPage} />
       <Box 
         sx={{ 
           display: 'flex', 
@@ -19,21 +41,9 @@ const App = () => {
           padding: { xs: 2, md: 4 } 
         }}
       >
-        <Routes>
-          <Route path="/" element={
-            <Box>
-              <HomeComponent />
-              <Services />
-              <Project />
-              <Contact />
-            </Box>
-          } />
-          <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<Project />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+        {renderContent()}
       </Box>
-    </Router>
+    </div>
   );
 };
 
