@@ -10,6 +10,7 @@ import {
   Alert
 } from '@mui/material';
 import { styled } from '@mui/system';
+import emailjs from 'emailjs-com';
 
 const StyledContainer = styled(Container)(({ theme }) => ({
   marginTop: theme.spacing(8),
@@ -31,8 +32,8 @@ const ResponsiveGrid = styled(Grid)(({ theme }) => ({
 
 const Contact = () => {
   const [form, setForm] = useState({
-    name: '',
-    email: '',
+    from_name: '',
+    to_name: 'Your Name', // Replace with the recipient's name if needed
     message: ''
   });
 
@@ -48,40 +49,30 @@ const Contact = () => {
 
   const validate = () => {
     let tempErrors = {};
-    tempErrors.name = form.name ? '' : 'This field is required.';
-    tempErrors.email = form.email ? '' : 'This field is required.';
-    tempErrors.email = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email) ? '' : 'Email is not valid.';
+    tempErrors.from_name = form.from_name ? '' : 'This field is required.';
     tempErrors.message = form.message ? '' : 'This field is required.';
     setErrors(tempErrors);
     return Object.values(tempErrors).every(x => x === '');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      try {
-        const response = await fetch('http://localhost:5000/api/messages', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(form),
-        });
-        if (response.ok) {
+      const serviceID = 'default_service';
+      const templateID = 'template_h1z3fb5'; // Replace with your actual template ID
+
+      emailjs.sendForm(serviceID, templateID, e.target, 'JGz-t5QE5OqJkztzh') // Replace with your user ID
+        .then((result) => {
           setSnackbarMessage('Message sent successfully!');
           setSnackbarSeverity('success');
-          setForm({ name: '', email: '', message: '' });
-        } else {
+          setForm({ from_name: '', to_name: 'Your Name', message: '' });
+        }, (error) => {
           setSnackbarMessage('Error sending message.');
           setSnackbarSeverity('error');
-        }
-      } catch (error) {
-        setSnackbarMessage('Error sending message.');
-        setSnackbarSeverity('error');
-        console.error('Error:', error);
-      } finally {
-        setOpenSnackbar(true);
-      }
+          console.error('Error:', error);
+        }).finally(() => {
+          setOpenSnackbar(true);
+        });
     }
   };
 
@@ -108,26 +99,13 @@ const Contact = () => {
             <TextField
               variant="outlined"
               fullWidth
-              id="name"
-              label="Name"
-              name="name"
-              value={form.name}
+              id="from_name"
+              label="Your Name"
+              name="from_name"
+              value={form.from_name}
               onChange={handleChange}
-              error={!!errors.name}
-              helperText={errors.name}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              error={!!errors.email}
-              helperText={errors.email}
+              error={!!errors.from_name}
+              helperText={errors.from_name}
             />
           </Grid>
           <Grid item xs={12}>
