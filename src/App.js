@@ -5,7 +5,7 @@ import HomeComponent from './components/Home';
 import Services from './components/Services';
 import Project from './components/Project';
 import Contact from './components/Contact';
-
+import Education from './components/Education';
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
 
@@ -24,6 +24,7 @@ const App = () => {
             <HomeComponent />
             <Services />
             <Project />
+            <Education />
             <Contact />
           </>
         );
