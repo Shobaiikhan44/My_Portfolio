@@ -13,7 +13,7 @@ import { styled } from '@mui/system';
 import emailjs from 'emailjs-com';
 
 const StyledContainer = styled(Container)(({ theme }) => ({
-  marginTop: theme.spacing(8),
+  marginTop: theme.spacing(3),
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

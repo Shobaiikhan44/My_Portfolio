@@ -37,16 +37,44 @@ const HomeComponent = () => {
     <Box sx={{ marginTop: '0px', padding: { xs: 2, lg: 5 } }}>
       <Grid container spacing={6} alignItems="center" justifyContent="center">
         <Grid item xs={12} md={6} order={{ xs: 1, md: 0 }} textAlign={{ xs: 'center', md: 'left' }}>
-          <Typography variant="h4" component="div" fontWeight="bold">
+          <Typography 
+            variant="h4" 
+            component="div" 
+            fontWeight="bold" 
+            sx={{ 
+              fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' }
+            }}
+          >
             Hello, It's Me
           </Typography>
-          <Typography variant="h2" component="div" fontWeight="800">
+          <Typography 
+            variant="h2" 
+            component="div" 
+            fontWeight="800" 
+            sx={{ 
+              fontSize: { xs: '2rem', sm: '3rem', md: '4rem' }
+            }}
+          >
             M. Shoban
           </Typography>
-          <Typography variant="h5" component="div" fontWeight="bold">
+          <Typography 
+            variant="h5" 
+            component="div" 
+            fontWeight="bold" 
+            sx={{ 
+              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '2rem' }
+            }}
+          >
             And I'm <span style={{ color: '#0DFFEB' }}>Frontend Developer</span>
           </Typography>
-          <Typography variant="body1" component="div" sx={{ mt: 2 }}>
+          <Typography 
+            variant="body1" 
+            component="div" 
+            sx={{ 
+              mt: 2, 
+              fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' }
+            }}
+          >
             A certified Front-End Developer from Meta.<br />
             I specialize in creating dynamic, user-friendly,<br />
             and responsive web interfaces using React.js <br /> /Next.js
