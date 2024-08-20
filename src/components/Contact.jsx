@@ -33,6 +33,7 @@ const ResponsiveGrid = styled(Grid)(({ theme }) => ({
 const Contact = () => {
   const [form, setForm] = useState({
     from_name: '',
+    email: '',
     to_name: 'Your Name', // Replace with the recipient's name if needed
     message: ''
   });
@@ -50,6 +51,10 @@ const Contact = () => {
   const validate = () => {
     let tempErrors = {};
     tempErrors.from_name = form.from_name ? '' : 'This field is required.';
+    tempErrors.email = form.email ? '' : 'This field is required.';
+    if (form.email && !/\S+@\S+\.\S+/.test(form.email)) {
+      tempErrors.email = 'Email is not valid.';
+    }
     tempErrors.message = form.message ? '' : 'This field is required.';
     setErrors(tempErrors);
     return Object.values(tempErrors).every(x => x === '');
@@ -65,7 +70,7 @@ const Contact = () => {
         .then((result) => {
           setSnackbarMessage('Message sent successfully!');
           setSnackbarSeverity('success');
-          setForm({ from_name: '', to_name: 'Your Name', message: '' });
+          setForm({ from_name: '', email: '', to_name: 'Your Name', message: '' , from_email: ''});
         }, (error) => {
           setSnackbarMessage('Error sending message.');
           setSnackbarSeverity('error');
@@ -106,6 +111,19 @@ const Contact = () => {
               onChange={handleChange}
               error={!!errors.from_name}
               helperText={errors.from_name}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              error={!!errors.email}
+              helperText={errors.email}
             />
           </Grid>
           <Grid item xs={12}>

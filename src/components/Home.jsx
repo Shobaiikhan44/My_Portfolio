@@ -60,7 +60,7 @@ const HomeComponent = () => {
             <a href="https://www.facebook.com" rel="noopener noreferrer" target="_blank">
               <FacebookIcon sx={{ fontSize: 40, color: '#0DFFEB', transition: 'transform 0.3s', '&:hover': { color: 'white', transform: 'scale(1.05)' } }} />
             </a>
-            <a href="https://www.instagram.com" rel="noopener noreferrer" target="_blank">
+            <a href="https://www.instagram.com/shobi141/" rel="noopener noreferrer" target="_blank">
               <InstagramIcon sx={{ fontSize: 40, color: '#0DFFEB', transition: 'transform 0.3s', '&:hover': { color: 'white', transform: 'scale(1.05)' } }} />
             </a>
             <a href="https://github.com/Shobaiikhan44" rel="noopener noreferrer" target="_blank">
