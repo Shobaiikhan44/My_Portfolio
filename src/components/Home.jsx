@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+
 import { Grid, Typography, Box, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import myPic from '../Assets/myPic.png'; 
@@ -7,7 +7,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import Resume from '../Assets/Muhammad_Shoban_FE.pdf';
-import myAudio from '../Assets/tone.mp3'; // Add your audio file here
+ // Add your audio file here
 
 const ResponsiveImage = styled('img')(({ theme }) => ({
   width: '100%',
@@ -25,14 +25,9 @@ const ResponsiveImage = styled('img')(({ theme }) => ({
 }));
 
 const HomeComponent = () => {
-  const audioRef = useRef(null);
+  
 
-  const handleImageClick = () => {
-    if (audioRef.current) {
-      audioRef.current.play();
-    }
-  };
-
+  
   return (
     <Box sx={{ marginTop: '0px', padding: { xs: 2, lg: 5 } }}>
       <Grid container spacing={6} alignItems="center" justifyContent="center">
@@ -116,10 +111,10 @@ const HomeComponent = () => {
           </Button>
         </Grid>
         <Grid item xs={12} md={6} order={{ xs: 0, md: 1 }} display="flex" justifyContent="center">
-          <ResponsiveImage src={myPic} alt="Muhammad Shoban" onClick={handleImageClick} />
+          <ResponsiveImage src={myPic} alt="Muhammad Shoban"  />
         </Grid>
       </Grid>
-      <audio ref={audioRef} src={myAudio} />
+      
     </Box>
   );
 };
